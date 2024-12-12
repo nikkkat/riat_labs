@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Drawing App";
+}
+
+<h1>Drawing App</h1>
+<canvas id="drawingCanvas" width="800" height="600" style="border: 1px solid black;"></canvas>
+<div>
+    <button id="clearCanvas">Clear Canvas</button>
+    <label for="penSize">Pen Size:</label>
+    <select id="penSize">
+        <option value="1">1</option>
+        <option value="3" selected>3</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+    </select>
+</div>
+
+<script>
+    const canvas = document.getElementById('drawingCanvas');
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+    let penSize = 3;
+
+    document.getElementById('penSize').addEventListener('change', function () {
+        penSize = this.value;
+        ctx.lineWidth = penSize;
+    });
+
+    canvas.addEventListener('mousedown', () => isDrawing = true);
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mousemove', (e) => {
+        if (isDrawing) {
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+        }
+    });
+
+    document.getElementById('clearCanvas').addEventListener('click', () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+</script>

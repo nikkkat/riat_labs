@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Рисование";
+}
+
+<h2>Добро пожаловать в приложение для рисования!</h2>
+
+<!-- Здесь будет холст для рисования -->
+<canvas id="canvas" width="800" height="600" style="border: 1px solid black;"></canvas>
+
+<script>
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var painting = false;
+
+    function startPosition(e) {
+        painting = true;
+        draw(e);
+    }
+
+    function endPosition() {
+        painting = false;
+        ctx.beginPath();
+    }
+
+    function draw(e) {
+        if (!painting) return;
+
+        ctx.lineWidth = 5;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = "black";
+
+        ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+    }
+
+    canvas.addEventListener("mousedown", startPosition);
+    canvas.addEventListener("mouseup", endPosition);
+    canvas.addEventListener("mousemove", draw);
+</script>
+
+
+<button onclick="window.location.href='/Accoun/Logout'">Выйти</button>

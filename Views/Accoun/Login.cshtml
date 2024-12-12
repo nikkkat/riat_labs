@@ -1,0 +1,20 @@
+@model AuthServiceMicroservice.Models.LoginModel
+
+<h2>Login</h2>
+
+<form asp-action="Login" method="post">
+    <div>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="Username" required />
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="Password" required />
+    </div>
+    <button type="submit">Login</button>
+</form>
+@if (!string.IsNullOrEmpty(ViewData["Error"] as string))
+{
+    <p style="color: red;">@ViewData["Error"]</p>
+}
+<a href="/Accoun/Register">Register</a>
